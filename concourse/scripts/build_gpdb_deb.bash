@@ -14,14 +14,14 @@
 set -eo pipefail
 set -x
 
-function build_debian() {
+function build_deb() {
 
 	local __package_name=$1
 	local __gpdb_binary_tarbal=$2
 
-	mkdir -p "debian_build_dir"
+	mkdir -p "deb_build_dir"
 
-	pushd "debian_build_dir"
+	pushd "deb_build_dir"
 	mkdir -p "${__package_name}/DEBIAN"
 	cat <<EOF >"${__package_name}/DEBIAN/postinst"
 #!/bin/sh
@@ -83,42 +83,41 @@ EOF
 	dpkg-deb --build "${__package_name}"
 	popd
 
-	cp "debian_build_dir/${__package_name}.deb" gpdb_debian_installer/
+	cp "deb_build_dir/${__package_name}.deb" gpdb_deb_installer/
 }
 
 function _main() {
-	local __final_debian_name
+	local __final_deb_name
 	local __final_package_name
-	local __built_debian
+	local __built_deb
 
 	if [[ -z "${GPDB_VERSION}" ]]; then
 		export GPDB_VERSION="$(./gpdb_src/getversion --short | grep -Po '^[^+]*')"
 	fi
-	echo "[INFO] Building debian installer for GPDB version: ${GPDB_VERSION}"
+	echo "[INFO] Building deb installer for GPDB version: ${GPDB_VERSION}"
 
 	echo "[INFO] Building for platform: ${PLATFORM}"
 
-	# Build the expected debian name based on the gpdb version of the artifacts
-	__final_debian_name="greenplum-db-${GPDB_VERSION}-${PLATFORM}-amd64.deb"
-	echo "[INFO] Final debian name: ${__final_debian_name}"
+	# Build the expected deb name based on the gpdb version of the artifacts
+	__final_deb_name="greenplum-db-${GPDB_VERSION}-${PLATFORM}-amd64.deb"
+	echo "[INFO] Final deb name: ${__final_deb_name}"
 
-	# Strip the last .deb from the __final_debian_name
-	__final_package_name="${__final_debian_name%.*}"
-	# Setup a location to build debian
-
-    # compared to gp-integration-testing pipeline, gp-release pipeline has different contents for bin_gpdb directory
-    # for gp-integration-testing, say bin_gpdb/server-rc-6.0.0-beta.3+dev.192.g753594a-ubuntu18.04_x86_64.tar.gz
-    # while gp-release, say bin_gpdb/QAUtils-ubuntu18.04-amd64.tar.gz and bin_gpdb/bin_gpdb.tar.gz
+	# Strip the last .deb from the __final_deb_name
+	__final_package_name="${__final_deb_name%.*}"
+	
+	# depending on the context in which this script is called, the contents of the `bin_gpdb` directory are slightly different
+	# in one case, `bin_gpdb` is expected to contain a file `server-rc-<semver>-<platform>-<arch>.tar.gz` and in the other
+	# case `bin_gpdb` is expected to contain files `bin_gpdb.tar.gz` and `QAUtils-<platform>-<arch>.tar.gz`
 	if [[ -f bin_gpdb/bin_gpdb.tar.gz ]]; then
-        build_debian "${__final_package_name}" bin_gpdb/bin_gpdb.tar.gz
+		build_deb "${__final_package_name}" bin_gpdb/bin_gpdb.tar.gz
     else
-        build_debian "${__final_package_name}" bin_gpdb/server-*.tar.gz
-    fi
-	# Export the built debian and include a sha256 hash
-	__built_debian="gpdb_debian_installer/${__final_debian_name}"
-	openssl dgst -sha256 "${__built_debian}" >"${__built_debian}".sha256 || exit 1
-	echo "[INFO] Final Debian installer: ${__built_debian}"
-	echo "[INFO] Final Debian installer sha: $(cat "${__built_debian}".sha256)" || exit 1
+		build_deb "${__final_package_name}" bin_gpdb/server-*.tar.gz
+	fi
+	# Export the built deb and include a sha256 hash
+	__built_deb="gpdb_deb_installer/${__final_deb_name}"
+	openssl dgst -sha256 "${__built_deb}" >"${__built_deb}".sha256 || exit 1
+	echo "[INFO] Final Debian installer: ${__built_deb}"
+	echo "[INFO] Final Debian installer sha: $(cat "${__built_deb}".sha256)" || exit 1
 }
 
 _main || exit 1

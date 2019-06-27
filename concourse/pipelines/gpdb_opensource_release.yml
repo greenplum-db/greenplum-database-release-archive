@@ -9,6 +9,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
+
 resource_types:
   - name: gcs
     type: docker-image
@@ -129,7 +130,7 @@ resources:
       json_key: ((concourse-gcs-resources-service-account-key))
       regexp: greenplum-oss-server/released/gpdb6/server-(.*)-ubuntu18.04_x86_64.tar.gz
 
-  - name: gpdb_debian_package
+  - name: gpdb_deb_package
     type: gcs
     source:
       bucket: ((gcs-bucket-for-oss))
@@ -194,7 +195,6 @@ jobs:
           - get: bin_gpdb_centos6
             passed: [compile_gpdb_centos6]
           - get: gpdb6-centos6-build
-      # Even though we don't ship the QA utils, we still need to strip out non-shipping files
       - task: separate_qautils_files_for_rc_centos6
         file: gpdb_src/concourse/tasks/separate_qautils_files_for_rc.yml
         image: gpdb6-centos6-build
@@ -217,7 +217,6 @@ jobs:
           - get: bin_gpdb_centos7
             passed: [compile_gpdb_centos7]
           - get: gpdb6-centos7-build
-      # Even though we don't ship the QA utils, we still need to strip out non-shipping files
       - task: separate_qautils_files_for_rc_centos7
         file: gpdb_src/concourse/tasks/separate_qautils_files_for_rc.yml
         image: gpdb6-centos7-build
@@ -243,7 +242,6 @@ jobs:
             passed: [compile_gpdb_ubuntu18.04]
           - get: gpdb6-ubuntu18.04-build
           - get: license_file
-      # Even though we don't ship the QA utils, we still need to strip out non-shipping files
       - task: separate_qautils_files_for_rc_ubuntu18.04
         file: gpdb_src/concourse/tasks/separate_qautils_files_for_rc.yml
         image: gpdb6-ubuntu18.04-build
@@ -253,8 +251,8 @@ jobs:
           rc_bin_gpdb: rc_bin_gpdb_ubuntu18.04
         params:
           QAUTILS_TARBALL: "rc_bin_gpdb/QAUtils-ubuntu18.04-amd64.tar.gz"
-      - task: create_gpdb_debian_package
-        file: greenplum-database-release_src/concourse/tasks/build_gpdb_debian.yml
+      - task: create_gpdb_deb_package
+        file: greenplum-database-release_src/concourse/tasks/build_gpdb_deb.yml
         image: gpdb6-ubuntu18.04-build
         input_mapping:
           bin_gpdb: rc_bin_gpdb_ubuntu18.04
@@ -264,9 +262,9 @@ jobs:
         - put: bin_gpdb_ubuntu18.04
           params:
             file: rc_bin_gpdb_ubuntu18.04/bin_gpdb.tar.gz
-        - put: gpdb_debian_package
+        - put: gpdb_deb_package
           params:
-            file: gpdb_debian_installer/*.deb
+            file: gpdb_deb_installer/*.deb
 
   - name: release
     plan:
@@ -285,7 +283,7 @@ jobs:
           - get: bin_gpdb_ubuntu18.04
             passed: [ubuntu18.04 packaging]
             trigger: true
-          - get: gpdb_debian_package
+          - get: gpdb_deb_package
             passed: [ubuntu18.04 packaging]
           - get: gpdb6-centos6-build
       - task: rename_gpdb_tarball
@@ -331,7 +329,7 @@ jobs:
             trigger: true
             passed: [release]
           - get: license_file
-          - get: gpdb_debian_package
+          - get: gpdb_deb_package
             passed: [release]
           - get: greenplum-database-release_src
       - task: gpdb_github_release
@@ -346,4 +344,4 @@ jobs:
             - release_artifacts/*.tar.gz
             - release_artifacts/*.zip
             - license_file/*.txt
-            - gpdb_debian_package/*.deb
+            - gpdb_deb_package/*.deb

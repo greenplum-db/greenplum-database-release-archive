@@ -9,16 +9,22 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
+
 platform: linux
+
 image_resource:
   type: docker-image
+
 inputs:
   - name: gpdb_src
   - name: python-tarball
   - name: greenplum-database-release_src
+
 outputs:
   - name: gpdb_artifacts
+
 run:
   path: greenplum-database-release_src/concourse/scripts/compile_gpdb_oss.bash
+
 params:
   ORCA_TAG: v3.51.0

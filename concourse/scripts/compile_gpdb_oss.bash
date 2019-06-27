@@ -24,8 +24,6 @@ fetch_orca_src () {
 
 build_xerces () {
     echo "Building Xerces-C"
-    # TODO this works when OUTPUT_DIR is a relative path but fails if an absolute path
-    # TODO this does not work when the output dir is outside the current dir
     mkdir -p xerces_patch/concourse
     cp -r orca_src/concourse/xerces-c xerces_patch/concourse
     cp -r orca_src/patches/ xerces_patch
@@ -107,7 +105,6 @@ include_gporca () {
 include_python () {
     local greenplum_install_dir="${1}"
 
-    # Create the python directory to flag to build scripts that python has been handled
     mkdir -p "${greenplum_install_dir}/ext/python"
     echo "Copying python from /opt/python-2.7.12 into ${greenplum_install_dir}/ext/python..."
     cp --archive /opt/python-2.7.12/* "${greenplum_install_dir}/ext/python"
@@ -116,8 +113,7 @@ include_python () {
 include_libstdcxx () {
     local greenplum_install_dir="${1}"
 
-    # if this is a platform that we use a non-system toolchain for, we need to
-    # vendor libstdc++
+    # if this is a platform that uses a non-system toolchain, libstdc++ needs to be vendored
     if [ -d /opt/gcc-6.4.0 ]; then
         cp --archive /opt/gcc-6.4.0/lib64/libstdc++.so.6{,.0.22} "${greenplum_install_dir}/lib"
     fi
