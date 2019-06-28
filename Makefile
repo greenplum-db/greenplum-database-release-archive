@@ -16,14 +16,10 @@
 ## ======================================================================
 
 # set the concourse target default to dev
-ifndef CONCOURSE
-override CONCOURSE  = dev
-endif
+CONCOURSE ?= releng
 
 # set the gp-release default branch to current branch
-ifndef BRANCH
-override BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
-endif
+BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 
 PIPELINE_NAME              = greenplum-database-release-${BRANCH}-${USER}
 FLY_CMD                    = fly
