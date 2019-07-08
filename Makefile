@@ -53,7 +53,8 @@ set-pipeline-dev:
     set-pipeline \
     --pipeline=${PIPELINE_NAME} \
     --config=concourse/pipelines/${PIPELINE_NAME}.yml \
-    --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/gpdb-oss-release.dev.yml  \
+    --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/gpdb-oss-release.dev.yml \
+    --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/ppa-debian-release-secrets-dev.yml \
     --var=greenplum-database-release-git-branch=${BRANCH} \
     --var=greenplum-database-release-git-remote=https://github.com/greenplum-db/greenplum-database-release.git \
     --var=pipeline-name=${PIPELINE_NAME} \
@@ -85,7 +86,8 @@ set-pipeline-prod:
     set-pipeline \
     --pipeline=greenplum-database-release \
     --config=concourse/pipelines/gpdb_opensource_release.yml \
-    --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/gpdb-oss-release.prod.yml  \
+    --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/gpdb-oss-release.prod.yml \
+    --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/ppa-debian-release-secrets.yml \
     --var=pipeline-name=greenplum-database-release \
     --var=greenplum-database-release-git-branch=master \
     --var=greenplum-database-release-git-remote=https://github.com/greenplum-db/greenplum-database-release.git \

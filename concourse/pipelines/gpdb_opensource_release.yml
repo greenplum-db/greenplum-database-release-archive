@@ -318,6 +318,22 @@ jobs:
           params:
             file: gpdb_deb_installer/*.deb
 
+  - name: publish to ppa
+    plan:
+    - aggregate:
+      - get: greenplum-database-release
+        passed: [compile_gpdb_ubuntu18.04]
+      - get: bin_gpdb_ubuntu18.04
+        passed: [compile_gpdb_ubuntu18.04]
+    - task: push to ppa
+      file: greenplum-database-release/concourse/publish_to_ppa/task.yml
+      params:
+        PPA_REPO: ((ppa-repository))
+        GPG_PRIVATE_KEY: ((gpg-private-key))
+        RELEASE_MESSAGE: ((release-message))
+        DEBFULLNAME: ((debian-package-maintainer-fullname))
+        DEBEMAIL: ((debian-package-maintainer-email))
+
   - name: release
     plan:
       - aggregate:
