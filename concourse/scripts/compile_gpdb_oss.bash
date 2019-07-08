@@ -88,6 +88,13 @@ build_gpdb () {
     mkdir -p "${greenplum_install_dir}/include"
 }
 
+git_info () {
+    local greenplum_install_dir="${1}"
+    pushd gpdb_src
+        ./concourse/scripts/git_info.bash | tee "${greenplum_install_dir}/etc/git-info.json"
+    popd
+}
+
 include_xerces () {
     local greenplum_install_dir="${1}"
 
@@ -164,6 +171,7 @@ _main () {
 
     local greenplum_install_dir="/usr/local/greenplum-db-oss"
     build_gpdb "${greenplum_install_dir}"
+    git_info "${greenplum_install_dir}"
 
     include_xerces "${greenplum_install_dir}"
     include_gporca "${greenplum_install_dir}"
