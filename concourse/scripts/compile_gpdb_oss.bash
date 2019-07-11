@@ -99,7 +99,10 @@ include_gporca () {
     local greenplum_install_dir="${1}"
 
     echo "Including libgpopt in greenplum package"
+    cp --archive /usr/local/lib/libgpdbcost.so.* "${greenplum_install_dir}/lib"
     cp --archive /usr/local/lib/libgpopt.so.* "${greenplum_install_dir}/lib"
+    cp --archive /usr/local/lib/libgpos.so.* "${greenplum_install_dir}/lib"
+    cp --archive /usr/local/lib/libnaucrates.so.* "${greenplum_install_dir}/lib"
 }
 
 include_python () {
