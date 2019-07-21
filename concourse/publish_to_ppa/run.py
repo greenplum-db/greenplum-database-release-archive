@@ -199,7 +199,7 @@ class SourcePackageBuilder:
                |    zlib1g,
                |    libldap-2.4-2,
                |    openssh-client,
-               |    openssh-client,
+               |    openssh-server,
                |    openssl,
                |    perl,
                |    rsync,
