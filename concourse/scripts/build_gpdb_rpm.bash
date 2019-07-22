@@ -54,10 +54,11 @@ function setup_rpm_buildroot() {
     if [ ! -d license_file ]; then
       die "Not provide license_file when build open source gpdb rpm"
     fi
+    # append license_file/*.txt to bin_gpdb/*.tar
     gunzip "${__gpdb_binary_tarbal}"
-    cp license_file/*.txt copyright
+    cp license_file/*.txt open_source_license_greenplum_database.txt
     __bin_gpdb=$(dirname "${__gpdb_binary_tarbal}")
-    tar rf "${__bin_gpdb}"/*.tar copyright
+    tar rf "${__bin_gpdb}"/*.tar open_source_license_greenplum_database.txt
     gzip "${__bin_gpdb}"/*.tar
   fi
   cp "${__gpdb_binary_tarbal}" "${__rpm_build_dir}/SOURCES/gpdb.tar.gz"
