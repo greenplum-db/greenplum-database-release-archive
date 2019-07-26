@@ -37,7 +37,7 @@ class TestRPMPackageBuilder(TestCase):
         )
 
     @patch('oss.base.BasePackageBuilder.gpdb_version_short', new_callable=PropertyMock)
-    def test_build(self, mock):
+    def test_build_package_builder_settings(self, mock):
         mock.return_value = "gpdb-6.0.0-beta.5+dev.18.g6a02f28"
         self.assertEqual(self.rpm_package_builder.rpm_build_dir, "/root/rpmbuild")
         self.assertEqual(self.rpm_package_builder.rpm_gpdb_version, "gpdb_6.0.0_beta.5+dev.18.g6a02f28")
