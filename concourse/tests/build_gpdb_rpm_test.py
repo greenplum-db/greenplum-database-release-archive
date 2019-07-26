@@ -13,7 +13,7 @@
 # the License.
 import os
 from unittest import TestCase
-from unittest.mock import Mock, patch, PropertyMock
+from unittest.mock import Mock, patch, PropertyMock, call
 
 from oss.rpmbuild import RPMPackageBuilder
 
@@ -46,3 +46,26 @@ class TestRPMPackageBuilder(TestCase):
             self.rpm_package_builder.platform = "ubuntu18.04"
         self.assertEqual(self.rpm_package_builder.rpm_package_name,
                          "greenplum-database-gpdb-6.0.0-beta.5+dev.18.g6a02f28-rhel6-x86_64.rpm")
+
+    @patch('oss.base.BasePackageBuilder.gpdb_version_short', new_callable=PropertyMock)
+    @patch('oss.rpmbuild.RPMPackageBuilder._prepare_rpm_build_dir')
+    @patch('oss.utils.Util.run_or_fail')
+    def test_build_flags(self, run_or_fail_mock, prepare_rpm_build_dir_mock, gpdb_version_short_mock):
+        gpdb_version_short_mock.return_value = "gpdb-6.0.0-beta.5+dev.18.g6a02f28"
+        self.rpm_package_builder.build()
+        self.assertEqual(
+            run_or_fail_mock.call_args_list,
+            [call(['/bin/bash', '-c',
+                   'rpmbuild -bb /root/rpmbuild/SPECS/greenplum-db.spec '
+                   '--define="rpm_gpdb_version gpdb_6.0.0_beta.5+dev.18.g6a02f28" '
+                   '--define="gpdb_version gpdb-6.0.0-beta.5+dev.18.g6a02f28" '
+                   '--define="gpdb_release 1" '
+                   '--define="gpdb_name greenplum-database" '
+                   '--define="gpdb_summary Greenplum-DB" '
+                   '--define="gpdb_license Pivotal Software EULA" '
+                   '--define="gpdb_url https://github.com/greenplum-db/gpdb" '
+                   '--define="gpdb_buildarch x86_64" '
+                   '--define="gpdb_description Greenplum Database" '
+                   '--define="gpdb_prefix /usr/local"'],
+                  cwd='/root/rpmbuild')]
+        )
