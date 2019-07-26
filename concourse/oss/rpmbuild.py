@@ -62,7 +62,7 @@ class RPMPackageBuilder(BasePackageBuilder):
 
     @property
     def rpm_gpdb_version(self):
-        return super(RPMPackageBuilder, self).gpdb_version_short.replace('-', '_')
+        return self.gpdb_version_short.replace('-', '_')
 
     @property
     def platform(self):
