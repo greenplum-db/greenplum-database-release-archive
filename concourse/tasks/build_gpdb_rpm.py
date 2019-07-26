@@ -44,5 +44,4 @@ if __name__ == '__main__':
     # Copy the RPM package to output resource
     print("Copy the RPM package to the output resource")
     rpm_file_path = os.path.abspath(glob.glob("%s/RPMS/x86_64/*.rpm" % rpm_builder.rpm_build_dir)[0])
-    rpm_file_name = os.path.basename(rpm_file_path)
-    shutil.copy(rpm_file_path, os.path.join("gpdb_rpm_installer", rpm_file_name))
+    shutil.copy(rpm_file_path, os.path.join("gpdb_rpm_installer", rpm_builder.rpm_package_name))
