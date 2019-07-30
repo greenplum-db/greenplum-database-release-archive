@@ -212,18 +212,11 @@ jobs:
             passed: [compile_gpdb_centos6]
           - get: gpdb6-centos6-build
           - get: license_file
-      - task: remove_non_production_files
-        file: gpdb_src/concourse/tasks/remove_non_production_files.yml
-        image: gpdb6-centos6-build
-        input_mapping:
-          bin_gpdb: bin_gpdb_centos6
-        output_mapping:
-          rc_bin_gpdb: rc_bin_gpdb_centos6
       - task: create_gpdb_rpm_package
         file: greenplum-database-release/concourse/tasks/build_gpdb_rpm.yml
         image: gpdb6-centos6-build
         input_mapping:
-          bin_gpdb: rc_bin_gpdb_centos6
+          bin_gpdb: bin_gpdb_centos6
         params:
           PLATFORM: "rhel6"
           GPDB_NAME: greenplum-database
@@ -254,18 +247,11 @@ jobs:
             passed: [compile_gpdb_centos7]
           - get: gpdb6-centos7-build
           - get: license_file
-      - task: remove_non_production_files
-        file: gpdb_src/concourse/tasks/remove_non_production_files.yml
-        image: gpdb6-centos7-build
-        input_mapping:
-          bin_gpdb: bin_gpdb_centos7
-        output_mapping:
-          rc_bin_gpdb: rc_bin_gpdb_centos7
       - task: create_gpdb_rpm_package
         file: greenplum-database-release/concourse/tasks/build_gpdb_rpm.yml
         image: gpdb6-centos7-build
         input_mapping:
-          bin_gpdb: rc_bin_gpdb_centos7
+          bin_gpdb: bin_gpdb_centos7
         params:
           PLATFORM: "rhel7"
           GPDB_NAME: greenplum-database
@@ -296,18 +282,11 @@ jobs:
             passed: [compile_gpdb_ubuntu18.04]
           - get: gpdb6-ubuntu18.04-build
           - get: license_file
-      - task: remove_non_production_files
-        file: gpdb_src/concourse/tasks/remove_non_production_files.yml
-        image: gpdb6-ubuntu18.04-build
-        input_mapping:
-          bin_gpdb: bin_gpdb_ubuntu18.04
-        output_mapping:
-          rc_bin_gpdb: rc_bin_gpdb_ubuntu18.04
       - task: create_gpdb_deb_package
         file: greenplum-database-release/concourse/tasks/build_gpdb_deb.yml
         image: gpdb6-ubuntu18.04-build
         input_mapping:
-          bin_gpdb: rc_bin_gpdb_ubuntu18.04
+          bin_gpdb: bin_gpdb_ubuntu18.04
         params:
           PLATFORM: "ubuntu18.04"
       - aggregate:
