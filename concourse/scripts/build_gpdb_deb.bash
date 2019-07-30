@@ -54,7 +54,7 @@ EOF
 	chmod 0775 "${__package_name}/DEBIAN/postrm"
 	mkdir -p "${__package_name}/usr/share/doc/greenplum-db/"
 	if [ -d ../license_file ]; then
-	    cp ../license_file/*.txt "${__package_name}/usr/share/doc/greenplum-db/copyright"
+	    cp ../license_file/*.txt "${__package_name}/usr/share/doc/greenplum-db/open_source_license_greenplum_database.txt"
 	fi
 
 	cat <<EOF >"${__package_name}/DEBIAN/control"
