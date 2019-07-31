@@ -227,13 +227,9 @@ jobs:
           GPDB_BUILDARCH: x86_64
           GPDB_DESCRIPTION: Greenplum Database
           GPDB_PREFIX: /usr/local
-      - aggregate:
-          - put: bin_gpdb_centos6
-            params:
-              file: rc_bin_gpdb_centos6/bin_gpdb.tar.gz
-          - put: gpdb_rpm_installer_centos6
-            params:
-              file: gpdb_rpm_installer/*.rpm
+      - put: gpdb_rpm_installer_centos6
+        params:
+          file: gpdb_rpm_installer/*.rpm
 
   - name: rhel7 packaging
     plan:
@@ -262,13 +258,9 @@ jobs:
           GPDB_BUILDARCH: x86_64
           GPDB_DESCRIPTION: Greenplum Database
           GPDB_PREFIX: /usr/local
-      - aggregate:
-          - put: bin_gpdb_centos7
-            params:
-              file: rc_bin_gpdb_centos7/bin_gpdb.tar.gz
-          - put: gpdb_rpm_installer_centos7
-            params:
-              file: gpdb_rpm_installer/*.rpm
+      - put: gpdb_rpm_installer_centos7
+        params:
+          file: gpdb_rpm_installer/*.rpm
 
   - name: ubuntu18.04 packaging
     plan:
@@ -289,13 +281,9 @@ jobs:
           bin_gpdb: bin_gpdb_ubuntu18.04
         params:
           PLATFORM: "ubuntu18.04"
-      - aggregate:
-        - put: bin_gpdb_ubuntu18.04
-          params:
-            file: rc_bin_gpdb_ubuntu18.04/bin_gpdb.tar.gz
-        - put: gpdb_deb_package
-          params:
-            file: gpdb_deb_installer/*.deb
+      - put: gpdb_deb_package
+        params:
+          file: gpdb_deb_installer/*.deb
 
   - name: publish to ppa
     plan:
