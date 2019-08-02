@@ -82,10 +82,12 @@ destroy-pipeline-dev:
 set-prod: set-pipeline-prod
 
 set-pipeline-prod:
+	sed -e 's|commitish: release_artifacts/commitish|## commitish: release_artifacts/commitish|g' concourse/pipelines/gpdb_opensource_release.yml > concourse/pipelines/gpdb_opensource_release_prod.yml
+
 	$(FLY_CMD) --target=prod \
     set-pipeline \
     --pipeline=greenplum-database-release \
-    --config=concourse/pipelines/gpdb_opensource_release.yml \
+    --config=concourse/pipelines/gpdb_opensource_release_prod.yml \
     --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/gpdb-oss-release.prod.yml \
     --load-vars-from=${HOME}/workspace/gp-continuous-integration/secrets/ppa-debian-release-secrets.yml \
     --var=pipeline-name=greenplum-database-release \
