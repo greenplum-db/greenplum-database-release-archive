@@ -21,7 +21,7 @@ if __name__ == '__main__':
     license_file_path = ""
 
     gpdb_name = os.environ["GPDB_NAME"]
-    if gpdb_name == "greenplum-database":
+    if gpdb_name == "greenplum-db":
         license_file_path = os.path.abspath(glob.glob("license_file/*.txt")[0])
 
     rpm_builder = RPMPackageBuilder(

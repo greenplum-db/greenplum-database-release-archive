@@ -42,7 +42,7 @@ class RPMPackageBuilder(BasePackageBuilder):
         self._pre_check()
 
     def _pre_check(self):
-        if self.name == "greenplum-database" and not os.path.exists(self.license_file_path):
+        if self.name == "greenplum-db" and not os.path.exists(self.license_file_path):
             raise Exception("Build the OpenSource GPDB need the license file!")
 
     def build(self):
@@ -82,7 +82,7 @@ class RPMPackageBuilder(BasePackageBuilder):
         for sub_dir in ["SOURCES", "SPECS"]:
             os.makedirs(os.path.join(self.rpm_build_dir, sub_dir), mode=0o755)
 
-        if self.name == "greenplum-database" and os.path.exists(self.license_file_path):
+        if self.name == "greenplum-db" and os.path.exists(self.license_file_path):
             temp_dir = tempfile.mkdtemp()
             print("TEMP DIR: %s" % temp_dir)
 

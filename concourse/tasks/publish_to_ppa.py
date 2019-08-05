@@ -18,7 +18,7 @@ from oss.ppa import SourcePackageBuilder, DebianPackageBuilder, LaunchpadPublish
 if __name__ == '__main__':
     source_package = SourcePackageBuilder(
         bin_gpdb_path='bin_gpdb_ubuntu18.04/bin_gpdb.tar.gz',
-        package_name='greenplum-database',
+        package_name='greenplum-db',
         release_message=os.environ["RELEASE_MESSAGE"]
     ).build()
 

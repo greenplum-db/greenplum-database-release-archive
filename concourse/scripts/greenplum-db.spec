@@ -87,8 +87,8 @@ exit 0
 
 %files
 # only Open Source Greenplum provide copyright, and the difference is the gpdb_name
-# for open source greenplum it is greenplum-database, while non open source greenplum is greenplum-db
-%if "%{gpdb_name}" == "greenplum-database"
+# for open source greenplum it is greenplum-db, while non open source greenplum is greenplum-db
+%if "%{gpdb_name}" == "greenplum-db"
 %doc open_source_license_greenplum_database.txt
 %endif
 %{bin_gpdb}
