@@ -365,7 +365,6 @@ jobs:
     plan:
       - aggregate:
           - get: gpdb_src
-            trigger: true
             passed: [release]
           - get: license_file
           - get: gpdb_rpm_installer_centos6
