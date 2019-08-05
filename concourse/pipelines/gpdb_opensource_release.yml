@@ -304,6 +304,12 @@ jobs:
 - name: release
   plan:
   - aggregate:
+    - get: greenplum-database-release
+      passed:
+      - rhel6 packaging
+      - rhel7 packaging
+      - ubuntu18.04 packaging
+      - publish to ppa
     - get: gpdb_src
       passed:
       - rhel6 packaging
@@ -325,6 +331,11 @@ jobs:
     - get: gpdb_deb_package
       passed: [ubuntu18.04 packaging]
     - get: gpdb6-centos6-build
+    - get: license_file
+      passed:
+      - rhel6 packaging
+      - rhel7 packaging
+      - ubuntu18.04 packaging
   - task: rename_gpdb_tarball
     config:
       platform: linux
@@ -368,6 +379,7 @@ jobs:
 
       passed: [release]
     - get: license_file
+      passed: [release]
     - get: gpdb_rpm_installer_centos6
       passed: [release]
     - get: gpdb_rpm_installer_centos7
@@ -375,6 +387,7 @@ jobs:
     - get: gpdb_deb_package
       passed: [release]
     - get: greenplum-database-release
+      passed: [release]
   - task: gpdb_github_release
     file: greenplum-database-release/concourse/tasks/gpdb_github_release.yml
   - put: gpdb_release
