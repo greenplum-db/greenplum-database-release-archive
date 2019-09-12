@@ -102,7 +102,7 @@ class TestSourcePackageBuilder(TestCase):
         self.assertEqual(
             mocked_run_or_fail.call_args_list,
             [call(['dch', '--create', '--package', 'name', '--newversion',
-                   'short~version-%s' % self.source_package_builder.debian_revision, 'message'],
+                   'short~version-ga-%s' % self.source_package_builder.debian_revision, 'message'],
                   cwd='name-short~version'),
              call(['dch', '--release', 'ignored message'], cwd='name-short~version')])
 
@@ -201,7 +201,7 @@ class TestSourcePackageBuilder(TestCase):
         self.source_package_builder.create_source()
         expected_contents_set = set(map(lambda filename: f'my_src/bin_gpdb/bin/app/{filename}', filenames))
         repackaged_contents_set = set()
-        with tarfile.open(os.path.join(self.temp_dir, 'name_short~version.orig.tar.gz')) as tar:
+        with tarfile.open(os.path.join(self.temp_dir, 'name_short~version-ga.orig.tar.gz')) as tar:
             repackaged_contents_set.update(map(lambda tar_info: tar_info.name, tar.getmembers()))
         self.assertEqual(len(repackaged_contents_set.intersection(expected_contents_set)), 3)
         mock_replace_greenplum_path.assert_called()
