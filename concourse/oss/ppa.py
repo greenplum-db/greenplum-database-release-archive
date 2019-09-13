@@ -53,7 +53,7 @@ class SourcePackage:
         self.debian_revision = debian_revision
 
     def changes(self):
-        return f'{self.package_name}_{self.version}-ga-{self.debian_revision}_source.changes'
+        return f'{self.package_name}_{self.version}-{self.debian_revision}_source.changes'
 
     def dir(self):
         return f'{self.package_name}-{self.version}'
@@ -99,7 +99,7 @@ class SourcePackageBuilder(BasePackageBuilder):
         self.replace_greenplum_path()
 
         # using _ here is debian convention
-        archive_name = f'{self.package_name}_{self.gpdb_upstream_version}-ga.orig.tar.gz'
+        archive_name = f'{self.package_name}_{self.gpdb_upstream_version}.orig.tar.gz'
         with tarfile.open(archive_name, 'w:gz') as tar:
             tar.add(self.source_dir, arcname=os.path.basename(self.source_dir))
 
@@ -135,11 +135,7 @@ class SourcePackageBuilder(BasePackageBuilder):
             fd.write(self._install())
 
     def generate_changelog(self):
-        # append `-ga` to version extracted from bin_gpdb tarball in order to sort
-        # as a newer version than 6.0.0-beta.7 (the last beta release before GA)
-        # the `-ga` suffix *must* be lower case in order for it to sort as a newer
-        # version
-        new_version = f'{self.gpdb_upstream_version}-ga-{self.debian_revision}'
+        new_version = f'{self.gpdb_upstream_version}-{self.debian_revision}'
         cmd = [
             'dch', '--create',
             '--package', self.package_name,
