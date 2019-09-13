@@ -57,7 +57,7 @@ class TestSourcePackage(TestCase):
         self.source_package = SourcePackage('a', 'b', 'c')
 
     def test_changes(self):
-        self.assertEqual(self.source_package.changes(), 'a_b-c_source.changes')
+        self.assertEqual(self.source_package.changes(), 'a_b-ga-c_source.changes')
 
     def test_dir(self):
         self.assertEqual(self.source_package.dir(), 'a-b')

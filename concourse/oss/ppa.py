@@ -53,7 +53,7 @@ class SourcePackage:
         self.debian_revision = debian_revision
 
     def changes(self):
-        return f'{self.package_name}_{self.version}-{self.debian_revision}_source.changes'
+        return f'{self.package_name}_{self.version}-ga-{self.debian_revision}_source.changes'
 
     def dir(self):
         return f'{self.package_name}-{self.version}'
