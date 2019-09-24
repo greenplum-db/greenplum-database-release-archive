@@ -9,7 +9,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
-
+---
 platform: linux
 
 image_resource:
@@ -19,10 +19,10 @@ image_resource:
     tag: 18.04
 
 inputs:
-  - name: bin_gpdb_ubuntu18.04
-  - name: gpdb_src
-  - name: greenplum-database-release
-  - name: license_file
+- name: bin_gpdb_ubuntu18.04
+- name: gpdb_src
+- name: greenplum-database-release
+- name: license_file
 
 run:
   path: bash

@@ -17,14 +17,14 @@ image_resource:
   type: docker-image
 
 inputs:
-  - name: bin_gpdb
-  - name: gpdb_src
-    optional: true
-  - name: greenplum-database-release
-  - name: license_file
+- name: bin_gpdb
+- name: gpdb_src
+  optional: true
+- name: greenplum-database-release
+- name: license_file
 
 outputs:
-  - name: gpdb_rpm_installer
+- name: gpdb_rpm_installer
 
 run:
   path: bash

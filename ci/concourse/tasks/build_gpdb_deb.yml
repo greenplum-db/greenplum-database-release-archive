@@ -9,22 +9,22 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
-
+---
 platform: linux
 
 image_resource:
   type: docker-image
 
 inputs:
-  - name: bin_gpdb
-  - name: gpdb_src
-    optional: true
-  - name: greenplum-database-release
-  - name: license_file
-    optional: true
+- name: bin_gpdb
+- name: gpdb_src
+  optional: true
+- name: greenplum-database-release
+- name: license_file
+  optional: true
 
 outputs:
-  - name: gpdb_deb_installer
+- name: gpdb_deb_installer
 
 run:
   path: greenplum-database-release/ci/concourse/scripts/build_gpdb_deb.bash
