@@ -1,0 +1,13 @@
+---
+name: 'yamllint'
+description: 'Runs yamllint against a directory'
+inputs:
+  directory:
+    description: 'the directory to run yamllint against'
+    required: false
+    default: '.'
+runs:
+  using: 'docker'
+  image: 'docker://cytopia/yamllint'
+  args:
+  - ${{ inputs.directory }}
