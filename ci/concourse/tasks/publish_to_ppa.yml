@@ -9,42 +9,39 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
----
 
 platform: linux
 
 image_resource:
   type: docker-image
+  source:
+    repository: ubuntu
+    tag: 18.04
 
 inputs:
-  - name: bin_gpdb
+  - name: bin_gpdb_ubuntu18.04
   - name: gpdb_src
-    optional: true
   - name: greenplum-database-release
   - name: license_file
-
-outputs:
-  - name: gpdb_rpm_installer
 
 run:
   path: bash
   args:
   - -ec
   - |
-    export PYTHONPATH=greenplum-database-release/concourse/
-    python greenplum-database-release/concourse/scripts/build_gpdb_rpm.py
+    cp greenplum-database-release/ci/concourse/scripts/dput.cf ~/.dput.cf
+    apt-get update -q=2
+    apt-get install -q=2 -y software-properties-common debmake equivs git
+    gpg --import <(echo "${GPG_PRIVATE_KEY}")
+
+    export PYTHONPATH=${PWD}/greenplum-database-release/ci/concourse
+    pushd greenplum-database-release/ci/concourse && python3 -m unittest tests/ppa_test.py && popd
+    python3 greenplum-database-release/ci/concourse/scripts/publish_to_ppa.py
 
 params:
-  # Default values passed to rpm SPEC
-  #  To override, please do so in pipeline
-  PLATFORM:
-  GPDB_NAME:
-  GPDB_RELEASE:
-  GPDB_SUMMARY:
-  GPDB_LICENSE:
-  GPDB_URL:
-  GPDB_BUILDARCH:
-  GPDB_DESCRIPTION:
-  GPDB_PREFIX:
-  # build the Open Source gpdb, set this variable to 'true'
-  GPDB_OSS:
+  PPA_REPO:
+  GPG_PRIVATE_KEY:
+  RELEASE_MESSAGE:
+  # The DEBFULLNAME and DEBMAIL environment variables are expected in the .deb building process
+  DEBFULLNAME:
+  DEBEMAIL:

@@ -34,7 +34,7 @@ class TestRPMPackageBuilder(TestCase):
             prefix="/usr/local",
             oss="true",
             bin_gpdb_path="bin_gpdb/bin_gpdb.tar.gz",
-            spec_file_path="greenplum-database-release/concourse/scripts/greenplum-db.spec",
+            spec_file_path="greenplum-database-release/ci/concourse/scripts/greenplum-db.spec",
             license_file_path="/tmp/lic.txt",
             gpdb_src_path="/tmp/gpdb_src"
         )

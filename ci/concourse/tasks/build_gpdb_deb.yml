@@ -16,12 +16,28 @@ image_resource:
   type: docker-image
 
 inputs:
+  - name: bin_gpdb
   - name: gpdb_src
-  - name: python-tarball
+    optional: true
   - name: greenplum-database-release
+  - name: license_file
+    optional: true
 
 outputs:
-  - name: gpdb_artifacts
+  - name: gpdb_deb_installer
 
 run:
-  path: greenplum-database-release/concourse/scripts/compile_gpdb_oss.bash
+  path: greenplum-database-release/ci/concourse/scripts/build_gpdb_deb.bash
+
+params:
+  PLATFORM:
+  # Default values passed to deb package
+  #  To override, please do so in pipeline
+  GPDB_NAME: greenplum-db
+  GPDB_SUMMARY: Greenplum-DB
+  GPDB_URL: https://github.com/greenplum-db/gpdb
+  GPDB_BUILDARCH: amd64
+  GPDB_DESCRIPTION: Pivotal Greenplum Server
+  GPDB_PREFIX: /usr/local
+  # build the Open Source gpdb, set this variable to 'true'
+  GPDB_OSS:

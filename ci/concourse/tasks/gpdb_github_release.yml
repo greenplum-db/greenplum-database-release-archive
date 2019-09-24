@@ -26,4 +26,4 @@ outputs:
   - name: release_artifacts
 
 run:
-  path: greenplum-database-release/concourse/scripts/gpdb_github_release.bash
+  path: greenplum-database-release/ci/concourse/scripts/gpdb_github_release.bash
