@@ -35,7 +35,6 @@ Requires: curl
 # krb5-devel provides libgssapi_krb5.so
 Requires: krb5-devel
 Requires: libcurl
-Requires: libedit
 Requires: libevent
 Requires: libxml2
 Requires: libyaml
@@ -44,6 +43,7 @@ Requires: openldap
 Requires: openssh
 Requires: openssl
 Requires: perl
+Requires: readline
 Requires: rsync
 Requires: sed
 Requires: tar
