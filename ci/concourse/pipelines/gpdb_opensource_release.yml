@@ -20,24 +20,28 @@ resources:
 ## Image Resources
 - name: gpdb6-centos6-build
   type: docker-image
+  icon: docker
   source:
     repository: pivotaldata/gpdb6-centos6-build
     tag: 'latest'
 
 - name: gpdb6-centos7-build
   type: docker-image
+  icon: docker
   source:
     repository: pivotaldata/gpdb6-centos7-build
     tag: 'latest'
 
 - name: gpdb6-ubuntu18.04-build
   type: docker-image
+  icon: docker
   source:
     repository: pivotaldata/gpdb6-ubuntu18.04-build
     tag: 'latest'
 
 - name: gpdb_src
   type: git
+  icon: git
   source:
     branch: ((gpdb-git-branch))
     uri: ((gpdb-git-remote))
@@ -45,12 +49,14 @@ resources:
 
 - name: greenplum-database-release
   type: git
+  icon: git
   source:
     branch: ((greenplum-database-release-git-branch))
     uri: ((greenplum-database-release-git-remote))
 
 - name: gpdb_release
   type: github-release
+  icon: github-circle
   source:
     owner: ((gpdb-release-owner))
     repository: ((gpdb-release-repository))
@@ -58,6 +64,7 @@ resources:
 
 - name: license_file
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
@@ -66,6 +73,7 @@ resources:
 ## gp internal artifacts
 - name: python-centos6
   type: gcs
+  icon: google
   source:
     json_key: ((concourse-gcs-resources-service-account-key))
     bucket: pivotal-gpdb-concourse-resources-prod
@@ -73,6 +81,7 @@ resources:
 
 - name: python-centos7
   type: gcs
+  icon: google
   source:
     json_key: ((concourse-gcs-resources-service-account-key))
     bucket: pivotal-gpdb-concourse-resources-prod
@@ -80,6 +89,7 @@ resources:
 
 - name: python-ubuntu18.04
   type: gcs
+  icon: google
   source:
     json_key: ((concourse-gcs-resources-service-account-key))
     bucket: pivotal-gpdb-concourse-resources-prod
@@ -88,6 +98,7 @@ resources:
 ## RHEL6 Resources
 - name: bin_gpdb_centos6
   type: gcs
+  icon: google
   source:
     json_key: ((concourse-gcs-resources-service-account-key))
     bucket: ((gcs-bucket-intermediates-for-oss))
@@ -95,6 +106,7 @@ resources:
 
 - name: bin_gpdb_centos6_release
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
@@ -102,6 +114,7 @@ resources:
 
 - name: gpdb_rpm_installer_centos6
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
@@ -110,6 +123,7 @@ resources:
 ## RHEL7 Resources
 - name: bin_gpdb_centos7
   type: gcs
+  icon: google
   source:
     json_key: ((concourse-gcs-resources-service-account-key))
     bucket: ((gcs-bucket-intermediates-for-oss))
@@ -117,6 +131,7 @@ resources:
 
 - name: bin_gpdb_centos7_release
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
@@ -124,6 +139,7 @@ resources:
 
 - name: gpdb_rpm_installer_centos7
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
@@ -132,6 +148,7 @@ resources:
 ## Ubuntu18.04 Resources
 - name: bin_gpdb_ubuntu18.04
   type: gcs
+  icon: google
   source:
     json_key: ((concourse-gcs-resources-service-account-key))
     bucket: ((gcs-bucket-intermediates-for-oss))
@@ -139,6 +156,7 @@ resources:
 
 - name: bin_gpdb_ubuntu18.04_release
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
@@ -146,6 +164,7 @@ resources:
 
 - name: gpdb_deb_package
   type: gcs
+  icon: google
   source:
     bucket: ((gcs-bucket-for-oss))
     json_key: ((concourse-gcs-resources-service-account-key))
