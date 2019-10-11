@@ -154,7 +154,7 @@ resources:
 jobs:
 - name: compile_gpdb_centos6
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       trigger: true
     - get: greenplum-database-release
@@ -170,7 +170,7 @@ jobs:
 
 - name: compile_gpdb_centos7
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       trigger: true
     - get: greenplum-database-release
@@ -186,7 +186,7 @@ jobs:
 
 - name: compile_gpdb_ubuntu18.04
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       trigger: true
     - get: greenplum-database-release
@@ -202,7 +202,7 @@ jobs:
 
 - name: rhel6 packaging
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       trigger: true
       passed: [compile_gpdb_centos6]
@@ -234,7 +234,7 @@ jobs:
 
 - name: rhel7 packaging
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       trigger: true
       passed: [compile_gpdb_centos7]
@@ -266,7 +266,7 @@ jobs:
 
 - name: ubuntu18.04 packaging
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       trigger: true
       passed: [compile_gpdb_ubuntu18.04]
@@ -290,7 +290,7 @@ jobs:
 
 - name: publish to ppa
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
       passed: [compile_gpdb_ubuntu18.04]
     - get: greenplum-database-release
@@ -309,7 +309,7 @@ jobs:
 
 - name: release
   plan:
-  - aggregate:
+  - in_parallel:
     - get: greenplum-database-release
       passed:
       - rhel6 packaging
@@ -367,7 +367,7 @@ jobs:
           cp -v bin_gpdb_ubuntu18.04/bin_gpdb.tar.gz releases/server-${gpdb_semver}-ubuntu18.04_x86_64.tar.gz
   - task: verify_gpdb_versions
     file: gpdb_src/concourse/tasks/verify_gpdb_versions.yml
-  - aggregate:
+  - in_parallel:
     - put: bin_gpdb_centos6_release
       params:
         file: "releases/server-*rhel6*.tar.gz"
@@ -380,7 +380,7 @@ jobs:
 
 - name: publish_gpdb_github_release
   plan:
-  - aggregate:
+  - in_parallel:
     - get: gpdb_src
 
       passed: [release]
