@@ -24,9 +24,6 @@ inputs:
 - name: greenplum-database-release
 - name: license_file
 
-outputs:
-- name: ppa_release
-
 run:
   path: bash
   args:
