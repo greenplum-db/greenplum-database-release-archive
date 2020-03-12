@@ -22,7 +22,7 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 
 _Packaging Layer_
 - The `Name` metadata field of the RPM package shall be `greenplum-db-[x]`, such that `[x]` is the Greenplum Major version number
-- The filename of the resulting file shall be `greenplum-db-[x.y.z]-[PLATFORM]-x86_64.rpm`, such that `[x.y.z]` is the Greenplum Server version string and `[PLATFORM]` is one of `RHEL6`, `RHEL7`, `sles11`, `sles12`
+- The filename of the resulting file shall be `greenplum-db-[x.y.z]-[PLATFORM]-x86_64.rpm`, such that `[x.y.z]` is the Greenplum Server version string and `[PLATFORM]` is one of `rhel6`, `rhel7`, `sles11`, `sles12`
 - The package shall make any installed `greenplum-db` package, of the same Major version, obsolete upon installation. Examples:
   - If `greenplum-db` version `5.0.0` is installed, then a user installs `greenplum-db-6` version `6.0.0`, both packages shall remain installed
   - If `greenplum-db` version `6.0.0` is installed, then a user installs `greenplum-db-6` version `6.0.0`, only `greenplum-db-6` version `6.0.0` shall remain installed
