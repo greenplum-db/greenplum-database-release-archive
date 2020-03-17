@@ -54,7 +54,7 @@ _Runtime Linking Layer_
     - `bin/gprestore` (Greenplum 5)
     - `bin/gpbackup` (Greenplum 5)
     - `bin/gpbackup_helper` (Greenplum 5)
-- Any of the "elf" formatted files within the package at `${GPHOME}/ext/python/bin/`, that relied on `${LD_LIBRARY_PATH}` being set for runtime linking, shall now rely on `RUNPATH` being set to `${ORIGIN}/../lib:$ORIGIN/../../../lib`
+- Any of the "elf" formatted files within the package at `${GPHOME}/ext/python/bin/`, that relied on `${LD_LIBRARY_PATH}` being set for runtime linking, shall now rely on `RUNPATH` being set to `${ORIGIN}/../lib`
 - Any of the "elf" formatted files within the package at `${GPHOME}/lib/`, that relied on `${LD_LIBRARY_PATH}` being set for runtime linking, shall now rely on `RUNPATH` being set to `${ORIGIN}/../lib`
   - Exception (Greenplum 6): `${GPHOME}/lib/postgresql/quicklz_compressor.so` shall have its `RUNPATH` set to `${ORIGIN}/../../lib`
   - Exception (Greenplum 6, Greenplum 5): `${GPHOME}/lib/python/pygresql/_pg.so` shall have its `RUNPATH` set to `${ORIGIN}/../../../lib`
