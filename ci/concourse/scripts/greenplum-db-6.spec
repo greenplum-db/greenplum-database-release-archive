@@ -24,8 +24,6 @@ URL: %{gpdb_url}
 Obsoletes: greenplum-db >= %{gpdb_major_version}.0.0
 Source0: gpdb.tar.gz
 Prefix: %{gpdb_prefix}
-%description
-%{gpdb_description}
 
 Requires: apr apr-util
 Requires: bash
@@ -56,6 +54,9 @@ Requires: openssh-server
 %if 0%{?rhel} == 7
 Requires: openssl-libs
 %endif
+
+%description
+%{gpdb_description}
 
 %prep
 # If the rpm_gpdb_version macro is not defined, it gets interpreted as a literal string
