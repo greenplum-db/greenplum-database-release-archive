@@ -24,6 +24,10 @@ build_xerces() {
 
 	/usr/bin/python xerces_patch/concourse/xerces-c/build_xerces.py --output_dir="/usr/local"
 	rm -rf build
+
+	# RHEL does not include `/usr/local/lib` in the default search path
+	echo "/usr/local/lib" >>/etc/ld.so.conf.d/gpdb.conf
+	ldconfig
 }
 
 install_python() {
