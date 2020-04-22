@@ -87,7 +87,7 @@ include_xerces() {
 	local greenplum_install_dir="${1}"
 
 	echo "Including libxerces-c in greenplum package"
-	cp --archive /usr/local/lib/libxerces-c*.so "${greenplum_install_dir}/lib"
+	cp --archive /usr/local/lib/libxerces-c{,-3.1}.so "${greenplum_install_dir}/lib"
 }
 
 include_python() {
@@ -119,7 +119,7 @@ include_zstd() {
 	*) return ;;
 	esac
 
-	cp --archive ${libdir}/libzstd.so.1* "${greenplum_install_dir}/lib"
+	cp --archive ${libdir}/libzstd.so.1{,.3.7} "${greenplum_install_dir}/lib"
 }
 
 export_gpdb() {
