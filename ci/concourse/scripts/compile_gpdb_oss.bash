@@ -13,51 +13,17 @@
 
 set -euox pipefail
 
-INTEGRATE_GPORCA=0
-
-if [[ -d "gpdb_src/src/backend/gporca" ]]; then
-	INTEGRATE_GPORCA=1
-fi
-
-fetch_orca_src() {
-	local orca_tag="${1}"
-
-	echo "Downloading greenplum-db/gporca@${orca_tag}"
-	mkdir orca_src
-	wget --quiet --output-document=- "https://github.com/greenplum-db/gporca/archive/${orca_tag}.tar.gz" |
-		tar xzf - --strip-components=1 --directory=orca_src
-}
-
 build_xerces() {
 	echo "Building Xerces-C"
 	mkdir -p xerces_patch/concourse
 
-	case ${INTEGRATE_GPORCA} in
-	0) orca_src="orca_src" ;;
-	1) orca_src="gpdb_src/src/backend/gporca" ;;
-	*)
-		echo "INTEGRATE GPORCA set error number!"
-		exit 1
-		;;
-	esac
+	orca_src="gpdb_src/src/backend/gporca"
 
 	cp -r "${orca_src}/concourse/xerces-c" xerces_patch/concourse
 	cp -r "${orca_src}/patches/" xerces_patch
 
 	/usr/bin/python xerces_patch/concourse/xerces-c/build_xerces.py --output_dir="/usr/local"
 	rm -rf build
-}
-
-build_orca() {
-	echo "Building orca"
-	orca_src/concourse/build_and_test.py --build_type=RelWithDebInfo --output_dir="/usr/local" --skiptests
-	# FIXME: build_and_test.py prepends `..` to the output_dir so we have to copy in to /usr/local
-	# ourselves
-	cp -a usr/local/* /usr/local
-	rm -rf usr build
-	# RHEL does not include `/usr/local/lib` in the default search path
-	echo "/usr/local/lib" >>/etc/ld.so.conf.d/gpdb.conf
-	ldconfig
 }
 
 install_python() {
@@ -120,16 +86,6 @@ include_xerces() {
 	cp --archive /usr/local/lib/libxerces-c*.so "${greenplum_install_dir}/lib"
 }
 
-include_gporca() {
-	local greenplum_install_dir="${1}"
-
-	echo "Including libgpopt in greenplum package"
-	cp --archive /usr/local/lib/libgpdbcost.so.* "${greenplum_install_dir}/lib"
-	cp --archive /usr/local/lib/libgpopt.so.* "${greenplum_install_dir}/lib"
-	cp --archive /usr/local/lib/libgpos.so.* "${greenplum_install_dir}/lib"
-	cp --archive /usr/local/lib/libnaucrates.so.* "${greenplum_install_dir}/lib"
-}
-
 include_python() {
 	local greenplum_install_dir="${1}"
 
@@ -177,22 +133,12 @@ export_gpdb() {
 }
 
 _main() {
-	if [[ ${INTEGRATE_GPORCA} == 0 ]]; then
-		local orca_tag
-		orca_tag="$(grep 'ORCA_TAG:' gpdb_src/concourse/tasks/compile_gpdb.yml | cut -d ':' -f 2 | tr -d '[:space:]')"
-		fetch_orca_src "${orca_tag}"
-	fi
-
 	if [ -e /opt/gcc_env.sh ]; then
 		# shellcheck disable=SC1091
 		. /opt/gcc_env.sh
 	fi
 
 	build_xerces
-
-	if [[ ${INTEGRATE_GPORCA} == 0 ]]; then
-		build_orca
-	fi
 
 	install_python
 
@@ -203,7 +149,6 @@ _main() {
 	git_info "${greenplum_install_dir}"
 
 	include_xerces "${greenplum_install_dir}"
-	include_gporca "${greenplum_install_dir}"
 	include_python "${greenplum_install_dir}"
 	include_libstdcxx "${greenplum_install_dir}"
 	include_zstd "${greenplum_install_dir}"
