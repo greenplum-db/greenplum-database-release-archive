@@ -20,7 +20,9 @@ build_xerces() {
 	orca_src="gpdb_src/src/backend/gporca"
 
 	cp -r "${orca_src}/concourse/xerces-c" xerces_patch/concourse
-	cp -r "${orca_src}/patches/" xerces_patch
+	if [ -d "${orca_src}/patches/" ]; then
+		cp -r "${orca_src}/patches/" xerces_patch
+	fi
 
 	/usr/bin/python xerces_patch/concourse/xerces-c/build_xerces.py --output_dir="/usr/local"
 	rm -rf build
