@@ -38,8 +38,8 @@ _Greenplum Path Layer_
 - `${GPHOME}` shall by default be set to `%{installation prefix}/greenplum-db-[version]`
   - If the installation prefix for a package is changed from the default by a user, then `%{installation prefix` shall be updated during installation to reflect the user's preference
 - `${LD_LIBRARY_PATH}` shall be set to `${GPHOME}/lib:${PYTHONHOME}/lib:${LD_LIBRARY_PATH-}`
-- `${PYTHONHOME}` shall be set to `${GPHOME}/ext/python`-
-  - Note: the existing `test -x` shall be removed. Refer to [this slack conversation](https://pivotal.slack.com/archives/C4B0FBK0T/p1576523800033300)) for an explanation.
+- For release where we vendor `python`, `${PYTHONHOME}` shall be set to `${GPHOME}/ext/python`
+  - Whether or not `${PYTHONHOME}` is included in `greenplum_path.sh` will be determined at **build time** and not run-time
 - `${PYTHONPATH}` shall be set to `${GPHOME}/lib/python`
 - `${PATH}` shall be set to `${GPHOME}/bin:${PYTHONHOME}/bin:${PATH}`
 - If the file `${GPHOME}/etc/openssl.cnf` exists then `${OPENSSL_CONF}` shall be set to `${GPHOME}/etc/openssl.cnf`
