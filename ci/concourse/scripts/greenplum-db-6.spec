@@ -89,5 +89,9 @@ exit 0
 %config(noreplace) %{prefix}/greenplum-db-%{gpdb_version}/greenplum_path.sh
 
 %post
+ln -fsT "${RPM_INSTALL_PREFIX}/greenplum-db-%{gpdb_version}" "${RPM_INSTALL_PREFIX}/greenplum-db" || :
 
 %postun
+if [ "$(readlink -f "${RPM_INSTALL_PREFIX}/greenplum-db")" == "${RPM_INSTALL_PREFIX}/greenplum-db-%{gpdb_version}" ]; then
+  unlink "${RPM_INSTALL_PREFIX}/greenplum-db" || :
+fi
