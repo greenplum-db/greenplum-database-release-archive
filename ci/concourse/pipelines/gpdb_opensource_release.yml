@@ -21,7 +21,19 @@ resource_types:
   source:
     repository: seveas/concourse-ppa-resource
 
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+
 resources:
+- name: slack-alert
+  type: slack-notification
+  icon: slack
+  source:
+    url: ((releng-webhook-url))
+
 ## Image Resources
 - name: gpdb6-centos6-build
   type: docker-image
@@ -192,6 +204,11 @@ resources:
 
 jobs:
 - name: compile_gpdb_centos6
+  on_failure: &slack-alert
+    put: slack-alert
+    params:
+      # yamllint disable-line rule:line-length
+      text: Hey team, <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|greenplum-database-release/$BUILD_JOB_NAME> failed.
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -208,6 +225,8 @@ jobs:
       file: gpdb_artifacts/bin_gpdb.tar.gz
 
 - name: compile_gpdb_centos7
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -224,6 +243,8 @@ jobs:
       file: gpdb_artifacts/bin_gpdb.tar.gz
 
 - name: compile_gpdb_ubuntu18.04
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -240,6 +261,8 @@ jobs:
       file: gpdb_artifacts/bin_gpdb.tar.gz
 
 - name: rhel6 packaging
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -272,6 +295,8 @@ jobs:
       file: gpdb_rpm_installer/*.rpm
 
 - name: rhel7 packaging
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -304,6 +329,8 @@ jobs:
       file: gpdb_rpm_installer/*.rpm
 
 - name: ubuntu18.04 packaging
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -328,6 +355,8 @@ jobs:
       file: gpdb_deb_installer/*.deb
 
 - name: publish to ppa
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
@@ -351,6 +380,8 @@ jobs:
       file: ppa_release/version.txt
 
 - name: verify ppa release
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: greenplum-database-release
@@ -364,6 +395,8 @@ jobs:
     file: greenplum-database-release/ci/concourse/tasks/verify_ppa_release.yml
 
 - name: release
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: greenplum-database-release
@@ -435,6 +468,8 @@ jobs:
         file: "releases/server-*ubuntu18.04*.tar.gz"
 
 - name: publish_gpdb_github_release
+  on_failure:
+    <<: *slack-alert
   plan:
   - in_parallel:
     - get: gpdb_src
