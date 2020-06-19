@@ -8,7 +8,7 @@ gpdb-release-repository: gpdb
 gcs-bucket-for-oss: greenplum-database-concourse-resources-dev
 ppa-repository: 'ppa:gpdb-test/db'
 ppa-login: 'gpdb-test/db'
-ppa-package-name: 'greenplum-db'
+ppa-package-name: 'greenplum-db-6'
 release-message: 'testing release of GPDB'
 debian-release-git-remote: https://github.com/greenplum-db/debian-release.git
 debian-release-git-branch: master

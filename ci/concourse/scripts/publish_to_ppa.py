@@ -20,7 +20,7 @@ from oss.utils import PackageTester
 if __name__ == '__main__':
     package_builder = SourcePackageBuilder(
         bin_gpdb_path='bin_gpdb_ubuntu18.04/bin_gpdb.tar.gz',
-        package_name='greenplum-db',
+        package_name='greenplum-db-6',
         release_message=os.environ["RELEASE_MESSAGE"],
         gpdb_src_path="gpdb_src",
         license_dir_path="license_file"

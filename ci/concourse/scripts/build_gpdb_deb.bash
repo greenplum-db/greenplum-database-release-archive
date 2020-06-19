@@ -80,7 +80,7 @@ NOTICE_EOF
 	fi
 
 	cat <<EOF >"${__package_name}/DEBIAN/control"
-Package: greenplum-db
+Package: greenplum-db-6
 Priority: extra
 Maintainer: gp-releng@pivotal.io
 Architecture: ${GPDB_BUILDARCH}

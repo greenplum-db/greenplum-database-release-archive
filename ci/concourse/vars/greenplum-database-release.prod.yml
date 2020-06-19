@@ -8,7 +8,7 @@ gpdb-release-repository: gpdb
 gcs-bucket-for-oss: greenplum-database-concourse-resources-prod
 ppa-repository: 'ppa:greenplum/db'
 ppa-login: 'greenplum/db'
-ppa-package-name: 'greenplum-db'
+ppa-package-name: 'greenplum-db-6'
 release-message: >-
   Release for Open Source version of Greenplum.
   Please see http://greenplum.org/docs for more information.
