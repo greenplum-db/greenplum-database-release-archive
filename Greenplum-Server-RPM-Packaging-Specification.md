@@ -175,7 +175,6 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 3. On every host, as a **root** user, install any necessary dependencies
 
    ```sh
-   # List required dependencies
    yum deplist ./greenplum-db-[version]-[platform]-[arch].rpm
    yum install [dependencies]
    ```
@@ -185,6 +184,71 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
    ```sh
    rpm --install ./greenplum-db-[version]-[platform]-[arch].rpm --prefix=[desired installation location]
    ```
+
+### How to install multiple Minor or Maintenance versions
+
+1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+
+2. Transfer the RPM package to all hosts being used for the Greenplum cluster
+
+3. On every host, as a **root** user, install any necessary dependencies
+
+   ```sh
+   yum deplist ./greenplum-db-[version A]-[platform]-[arch].rpm
+   yum deplist ./greenplum-db-[version B]-[platform]-[arch].rpm
+   yum deplist ./greenplum-db-[version C]-[platform]-[arch].rpm
+   yum install [dependencies]
+   ```
+
+4. On every host, as a **root** user, install the RPM package with `rpm --install`
+
+   ```sh
+   rpm --install ./greenplum-db-[version A]-[platform]-[arch].rpm
+   rpm --install ./greenplum-db-[version B]-[platform]-[arch].rpm
+   rpm --install ./greenplum-db-[version C]-[platform]-[arch].rpm
+   ```
+
+### How to install Greenplum without Root access
+
+It is not advisable to install Greenplum without root access. If necessary, there are two methods:
+
+**Method 1 - Using rpm2cpio**
+
+1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+
+2. Transfer the RPM package to all hosts being used for the Greenplum cluster
+
+3. On every host, ensure any necessary dependencies are installed
+
+   ```sh
+   yum deplist ./greenplum-db-[version]-[platform]-[arch].rpm
+   ```
+
+4. On every host, as a **non-root** user, extract the RPM package and specify the desired installation location
+
+   ```sh
+   rpm2cpio ./greenplum-db-[version]-[platform]-[arch].rpm | cpio -D /install/directory -idmv
+   ```
+
+All package management, dependency resolution, and conflict management with other software installed on the system will not be available with this method.
+
+**Method 2 - Separate RPM package database**
+
+1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+
+2. Transfer the RPM package to all hosts being used for the Greenplum cluster
+
+3. On every host, ensure any necessary dependencies are installed
+
+   ```sh
+   yum deplist ./greenplum-db-[version A]-[platform]-[arch].rpm
+   yum deplist ./greenplum-db-[version B]-[platform]-[arch].rpm
+   yum deplist ./greenplum-db-[version C]-[platform]-[arch].rpm
+   ```
+
+4. On every host, as a **non-root** user, follow the Redhat solution for installing RPM packages without root permissions. https://access.redhat.com/solutions/2986251
+
+The method can cause issue and conflicts with the rpm databse which will cause system to misbehave and leave the system in unstable state. Red Hat doesn't support any rpm database to be kept separate other than from /var/lib/rpm.
 
 ## Symbolic Links and Installation Directory
 
