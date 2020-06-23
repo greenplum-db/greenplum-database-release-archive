@@ -59,13 +59,15 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 - `greenplum-path.sh` shall be installed to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`
 - `${GPHOME}` shall by default be set to `%{installation prefix}/greenplum-db-[version]`
   - If the installation prefix for a package is changed from the default by a user, then `%{installation prefix` shall be updated during installation to reflect the user's preference
+  - `${GPHOME}` shall not be dynamically determined when sourcing `greenplum_path.sh`
 - `${LD_LIBRARY_PATH}` shall be set to `${GPHOME}/lib:${PYTHONHOME}/lib:${LD_LIBRARY_PATH-}`
 - For release where we vendor `python`, `${PYTHONHOME}` shall be set to `${GPHOME}/ext/python`
   - Whether or not `${PYTHONHOME}` is included in `greenplum_path.sh` will be determined at **build time** and not run-time
 - `${PYTHONPATH}` shall be set to `${GPHOME}/lib/python`
 - `${PATH}` shall be set to `${GPHOME}/bin:${PYTHONHOME}/bin:${PATH}`
 - If the file `${GPHOME}/etc/openssl.cnf` exists then `${OPENSSL_CONF}` shall be set to `${GPHOME}/etc/openssl.cnf`
-- [A portable bash shebang shall be set](https://stackoverflow.com/questions/10376206/what-is-the-preferred-bash-shebang)
+- No shebang (`#!)` will be set
+- The contents of `greenplum_path.sh` shall be POSIX compatible
 - The `greenplum_path.sh` file shall pass [ShellCheck](https://github.com/koalaman/shellcheck)
 
 ### _Runtime Linking Layer_
