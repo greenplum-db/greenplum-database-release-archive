@@ -90,6 +90,8 @@ exit 0
 
 %post
 ln -fsT "${RPM_INSTALL_PREFIX}/greenplum-db-%{gpdb_version}" "${RPM_INSTALL_PREFIX}/greenplum-db" || :
+# Set GPHOME to the installation prefix
+sed -i -e "1 s~^\(GPHOME=\).*~\1${RPM_INSTALL_PREFIX}/greenplum-db-%{gpdb_version}~" "${RPM_INSTALL_PREFIX}/greenplum-db-%{gpdb_version}/greenplum_path.sh"
 
 %postun
 if [ "$(readlink -f "${RPM_INSTALL_PREFIX}/greenplum-db")" == "${RPM_INSTALL_PREFIX}/greenplum-db-%{gpdb_version}" ]; then
