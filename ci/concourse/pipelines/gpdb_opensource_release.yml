@@ -390,7 +390,6 @@ jobs:
       trigger: true
     - get: ppa_release_version
       passed: [publish to ppa]
-      trigger: true
   - task: verify ppa release status
     file: greenplum-database-release/ci/concourse/tasks/verify_ppa_release.yml
 
