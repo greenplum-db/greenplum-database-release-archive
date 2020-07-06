@@ -136,3 +136,16 @@ local-build-deb:
 
 local-build-rpm:
 	bin/create_rpm_package.bash
+
+local-build-gpdb5-centos6-rpm:
+	docker run -it -v $$PWD/:/tmp/greenplum-database-release \
+	-e GPDB_VERSION=${GPDB_VERSION} -e PLATFORM=rhel6 \
+	-w /tmp/greenplum-database-release \
+	pivotaldata/centos-gpdb-dev:6-gcc6.2-llvm3.7 /tmp/greenplum-database-release/bin/create_gpdb5_rpm_package.sh
+
+local-build-gpdb5-centos7-rpm:
+	docker run -it -v $$PWD/:/tmp/greenplum-database-release \
+	-e GPDB_VERSION=${GPDB_VERSION} -e PLATFORM=rhel7 \
+	-w /tmp/greenplum-database-release \
+	pivotaldata/centos-gpdb-dev:7-gcc6.2-llvm3.7 /tmp/greenplum-database-release/bin/create_gpdb5_rpm_package.sh
+

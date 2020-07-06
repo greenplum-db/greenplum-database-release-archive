@@ -15,3 +15,6 @@ ci/concourse/pipelines/greenplum-database-release-*.yml
 ci/concourse/pipelines/gpdb_opensource_release_prod.yml
 ci/concourse/oss/__pycache__/
 ci/concourse/tests/__pycache__/
+/bin_gpdb
+/*.rpm
+/*.rpm.sha256

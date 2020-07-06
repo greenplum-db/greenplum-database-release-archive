@@ -53,3 +53,24 @@ Cloning into '/tmp/create-package/greenplum-database-release'...
 done.
 Passed check! Install /tmp/build/gpdb_deb_installer/greenplum-db-<gpdb_version>-ubuntu18.04-amd64.deb package successfully.
 ```
+
+## How to use the application to create a RPM package for gpdb5 locally
+
+```bash
+cd greeplum-database-release
+mkdir bin_gpdb
+
+# download `bin_gpdb.tar.gz` to `greenplum-database-release/bin_gpdb/bin_gpdb.tar.gz`
+```
+
+For rhel6
+
+```bash
+GPDB_VERSION=<GPDB_VERSION> make local-build-gpdb5-centos6-rpm
+```
+
+For rhel7
+
+```bash
+GPDB_VERSION=<GPDB_VERSION> make local-build-gpdb5-centos7-rpm
+```
