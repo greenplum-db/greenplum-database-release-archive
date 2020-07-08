@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 
 GPDB_BUILDARCH="x86_64"
 GPDB_DESCRIPTION="Greenplum Database"
