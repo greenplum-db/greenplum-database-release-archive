@@ -53,7 +53,7 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 - The package shall be [relocatable](http://ftp.rpm.org/api/4.4.2.2/relocatable.html)
 - The package shall create a symbolic link from `${installation prefix}/greenplum-db-[package-version]` to `${installation prefix}/greenplum-db`
   - If a `${installation prefix}/greenplum-db` symbolic link already exists, then it should be removed and the expected link created
-- When performing an upgrade, downgrade, or uninstall of the RPM package, any changes to the installed `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh` file shall not be removed. (Note: This does not include transferring changes; It is only for saving changes)
+- When performing an upgrade, downgrade, or uninstall of the RPM package, if a user has made any changes to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`, then the file shall not be removed or overwritten.
 
 ### _Greenplum Path Layer_
 - `greenplum-path.sh` shall be installed to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`
