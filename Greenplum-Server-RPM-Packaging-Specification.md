@@ -57,9 +57,8 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 
 ### _Greenplum Path Layer_
 - `greenplum-path.sh` shall be installed to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`
-- `${GPHOME}` shall by default be set to `%{installation prefix}/greenplum-db-[version]`
-  - If the installation prefix for a package is changed from the default by a user, then `%{installation prefix` shall be updated during installation to reflect the user's preference
-  - `${GPHOME}` shall not be dynamically determined when sourcing `greenplum_path.sh`
+- `${GPHOME}` shall be set to `%{installation prefix}/greenplum-db-[version]`
+  - If the installation prefix for a package is changed from the default by a user, then `%{installation prefix}` shall be updated
 - `${LD_LIBRARY_PATH}` shall be set to `${GPHOME}/lib:${PYTHONHOME}/lib:${LD_LIBRARY_PATH-}`
 - For release where we vendor `python`, `${PYTHONHOME}` shall be set to `${GPHOME}/ext/python`
   - Whether or not `${PYTHONHOME}` is included in `greenplum_path.sh` will be determined at **build time** and not run-time
