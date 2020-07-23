@@ -281,7 +281,7 @@ jobs:
       bin_gpdb: bin_gpdb_centos6
     params:
       PLATFORM: "rhel6"
-      GPDB_NAME: greenplum-db
+      GPDB_NAME: greenplum-db-6
       GPDB_RELEASE: 1
       GPDB_SUMMARY: Greenplum-DB
       GPDB_LICENSE: Pivotal Software EULA
@@ -315,7 +315,7 @@ jobs:
       bin_gpdb: bin_gpdb_centos7
     params:
       PLATFORM: "rhel7"
-      GPDB_NAME: greenplum-db
+      GPDB_NAME: greenplum-db-6
       GPDB_RELEASE: 1
       GPDB_SUMMARY: Greenplum-DB
       GPDB_LICENSE: Pivotal Software EULA
