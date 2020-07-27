@@ -1,5 +1,5 @@
 Source: greenplum-db-5
-Maintainer: Omitted <no-reply@example.com>
+Maintainer: GP RelEng <pvtl-gp-releng@vmware.com>
 Section: database
 Build-Depends: debhelper (>= 9),
     bison,
