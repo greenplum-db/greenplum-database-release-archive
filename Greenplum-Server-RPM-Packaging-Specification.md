@@ -4,20 +4,20 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 
 1. [Supported Features](#supported-features)
 2. [Detailed Package Behavior](#detailed-package-behavior)
-	1. [_Packaging Layer_](#_packaging-layer_)
-	2. [_Greenplum Path Layer_](#_greenplum-path-layer_)
-	3. [_Runtime Linking Layer_](#_runtime-linking-layer_)
+   1. [_Packaging Layer_](#_packaging-layer_)
+   2. [_Greenplum Path Layer_](#_greenplum-path-layer_)
+   3. [_Runtime Linking Layer_](#_runtime-linking-layer_)
 3. [Usage](#usage)
-	1. [How to perform an installation](#how-to-perform-an-installation)
-	2. [How to perform a Minor or Maintenance Version Upgrade](#how-to-perform-a-minor-or-maintenance-version-upgrade)
-	3. [How to perform a Major version upgrade](#how-to-perform-a-major-version-upgrade)
-	4. [How to perform a Minor or Maintenance version downgrade](#how-to-perform-a-minor-or-maintenance-version-downgrade)
-	5. [How to perform an uninstallation](#how-to-perform-an-uninstallation)
-	6. [How to perform an installation to a non-default location](#how-to-perform-an-installation-to-a-non-default-location)
+   1. [How to perform an installation](#how-to-perform-an-installation)
+   2. [How to perform a Minor or Maintenance Version Upgrade](#how-to-perform-a-minor-or-maintenance-version-upgrade)
+   3. [How to perform a Major version upgrade](#how-to-perform-a-major-version-upgrade)
+   4. [How to perform a Minor or Maintenance version downgrade](#how-to-perform-a-minor-or-maintenance-version-downgrade)
+   5. [How to perform an uninstallation](#how-to-perform-an-uninstallation)
+   6. [How to perform an installation to a non-default location](#how-to-perform-an-installation-to-a-non-default-location)
 4. [Symbolic Links and Installation Directory](#symbolic-links-and-installation-directory)
-	1. [Greenplum 5 Current Behavior](#greenplum-5-current-behavior)
-	2. [Greenplum 6 Current Behavior](#greenplum-6-current-behavior)
-	3. [Expected Behavior for All Major Versions](#expected-behavior-for-all-major-versions)
+   1. [Greenplum 5 Current Behavior](#greenplum-5-current-behavior)
+   2. [Greenplum 6 Current Behavior](#greenplum-6-current-behavior)
+   3. [Expected Behavior for All Major Versions](#expected-behavior-for-all-major-versions)
 
 ## Supported Features
 
@@ -42,6 +42,7 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 ## Detailed Package Behavior
 
 ### _Packaging Layer_
+
 - The `Name` metadata field of the RPM package shall be `greenplum-db-[x]`, such that `[x]` is the Greenplum Major version number
 - The filename of the resulting file shall be `greenplum-db-[x.y.z]-[PLATFORM]-x86_64.rpm`, such that `[x.y.z]` is the Greenplum Server version string and `[PLATFORM]` is one of `rhel6`, `rhel7`, `sles11`, `sles12`
 - The package shall make any installed `greenplum-db` package, of the same Major version, obsolete upon installation. Examples:
@@ -56,6 +57,7 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 - When performing an upgrade, downgrade, or uninstall of the RPM package, if a user has made any changes to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`, then the file shall not be removed or overwritten.
 
 ### _Greenplum Path Layer_
+
 - `greenplum-path.sh` shall be installed to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`
 - `${GPHOME}` shall be set to `%{installation prefix}/greenplum-db-[version]`
   - If the installation prefix for a package is changed from the default by a user, then `%{installation prefix}` shall be updated
@@ -70,6 +72,7 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 - The `greenplum_path.sh` file shall pass [ShellCheck](https://github.com/koalaman/shellcheck)
 
 ### _Runtime Linking Layer_
+
 - Any of the `elf` formatted files within the package at `${GPHOME}/bin`, that relied on `${LD_LIBRARY_PATH}` being set for runtime linking, shall now rely on `${RUNPATH}` being set to `${ORIGIN}/../lib`
   - Exception: The following exceptions are golang binaries that shall not have `RUNPATH` set:
     - `bin/gpkafka` (Greenplum 6, Greenplum 5)
@@ -93,7 +96,7 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 ### How to perform an installation
 
-1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -105,7 +108,7 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 ### How to perform a Minor or Maintenance Version Upgrade
 
-1. Download the new Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the new Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -119,7 +122,7 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 ### How to perform a Major version upgrade
 
-1. Download the new Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the new Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -144,7 +147,7 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 ### How to perform a Minor or Maintenance version downgrade
 
-1. Download the downgraded Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the downgraded Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -169,7 +172,7 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 ### How to perform an installation to a non-default location
 
-1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -188,7 +191,7 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 ### How to install multiple Minor or Maintenance versions
 
-1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -213,9 +216,9 @@ Documenation of how a user is expected to to interact with the Greenplum Server 
 
 It is not advisable to install Greenplum without root access. If necessary, there are two methods:
 
-**Method 1 - Using rpm2cpio**
+#### Method 1 - Using rpm2cpio
 
-1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -233,9 +236,9 @@ It is not advisable to install Greenplum without root access. If necessary, ther
 
 All package management, dependency resolution, and conflict management with other software installed on the system will not be available with this method.
 
-**Method 2 - Separate RPM package database**
+#### Method 2 - Separate RPM package database
 
-1. Download the Greenplum Server binary RPM package installer from https://network.pivotal.io
+1. Download the Greenplum Server binary RPM package installer from <https://network.pivotal.io>
 
 2. Transfer the RPM package to all hosts being used for the Greenplum cluster
 
@@ -247,7 +250,7 @@ All package management, dependency resolution, and conflict management with othe
    yum deplist ./greenplum-db-[version C]-[platform]-[arch].rpm
    ```
 
-4. On every host, as a **non-root** user, follow the Redhat solution for installing RPM packages without root permissions. https://access.redhat.com/solutions/2986251
+4. On every host, as a **non-root** user, follow the Redhat solution for installing RPM packages without root permissions:  <https://access.redhat.com/solutions/2986251>
 
 The method can cause issue and conflicts with the rpm databse which will cause system to misbehave and leave the system in unstable state. Red Hat doesn't support any rpm database to be kept separate other than from /var/lib/rpm.
 
@@ -255,8 +258,9 @@ The method can cause issue and conflicts with the rpm databse which will cause s
 
 ### Greenplum 5 Current Behavior
 
-**Install**
-```sh
+#### Install
+
+```console
 $ yum install -y -d0 ./greenplum-db-5.27.0-rhel7-x86_64.rpm
 
 $ ls -l /usr/local/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} | grep green
@@ -264,8 +268,9 @@ lrwxrwxrwx root root greenplum-db -> /usr/local/greenplum-db-5.27.0
 drwxr-xr-x root root greenplum-db-5.27.0
 ```
 
-**Upgrade**
-```sh
+#### Upgrade
+
+```console
 $ yum install -y -d0 ./greenplum-db-5.27.0-rhel7-x86_64.rpm
 
 # Same behavior between 'upgrade' and 'install'
@@ -282,8 +287,9 @@ $ ls -l /usr/local/greenplum-db-5.27.0/ | awk {'print $1" "$3" "$4" "$9" "$10" "
 lrwxrwxrwx root root greenplum-db-5.27.1 -> /usr/local/greenplum-db-5.27.1
 ```
 
-**Downgrade**
-```sh
+#### Downgrade
+
+```console
 $ yum install -y -d0 ./greenplum-db-5.27.0-rhel7-x86_64.rpm
 
 $ yum upgrade -y -d0 ./greenplum-db-5.27.1-rhel7-x86_64.rpm
@@ -299,16 +305,18 @@ $ ls -l /usr/local/greenplum-db-5.27.0/ | awk {'print $1" "$3" "$4" "$9" "$10" "
 lrwxrwxrwx root root greenplum-db-5.27.1 -> /usr/local/greenplum-db-5.27.1
 ```
 
-**Relocated Install**
-```sh
+#### Relocated Install
+
+```console
 $ rpm -i ./greenplum-db-5.27.0-rhel7-x86_64.rpm --prefix=/opt
 $ ls -l /opt/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} | grep green
 lrwxrwxrwx root root greenplum-db -> /opt/greenplum-db-5.27.0
 drwxr-xr-x root root greenplum-db-5.27.0
 ```
 
-**Relocated Upgrade**
-```sh
+#### Relocated Upgrade
+
+```console
 $ rpm -i ./greenplum-db-5.27.0-rhel7-x86_64.rpm --prefix=/opt
 
 $ rpm -U ./greenplum-db-5.27.1-rhel7-x86_64.rpm --prefix=/opt
@@ -323,8 +331,9 @@ $ ls -l /opt/greenplum-db-5.27.0/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'}
 lrwxrwxrwx root root greenplum-db-5.27.1 -> /opt/greenplum-db-5.27.1
 ```
 
-**Relocated Downgrade**
-```sh
+#### Relocated Downgrade
+
+```console
 $ rpm -i ./greenplum-db-5.27.0-rhel7-x86_64.rpm --prefix=/opt
 
 $ rpm -U ./greenplum-db-5.27.1-rhel7-x86_64.rpm --prefix=/opt
@@ -340,8 +349,9 @@ $ ls -l /opt/greenplum-db-5.27.0/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} 
 lrwxrwxrwx root root greenplum-db-5.27.1 -> /opt/greenplum-db-5.27.1
 ```
 
-**Dual Install (same package major version)**
-```sh
+#### Dual Install (same package major version)
+
+```console
 $ rpm -i ./greenplum-db-5.27.0-rhel7-x86_64.rpm
 
 $ rpm -i ./greenplum-db-5.27.1-rhel7-x86_64.rpm
@@ -357,8 +367,9 @@ $ ls -l /usr/local/greenplum-db-5.27.0/ | awk {'print $1" "$3" "$4" "$9" "$10" "
 lrwxrwxrwx root root greenplum-db-5.27.1 -> /usr/local/greenplum-db-5.27.1
 ```
 
-**Relocated Dual Install (same package major version)**
-```sh
+#### Relocated Dual Install (same package major version)**
+
+```console
 $ rpm -i ./greenplum-db-5.27.0-rhel7-x86_64.rpm --prefix=/opt
 
 $ rpm -i ./greenplum-db-5.27.1-rhel7-x86_64.rpm --prefix=/opt
@@ -376,8 +387,9 @@ lrwxrwxrwx root root greenplum-db-5.27.1 -> /opt/greenplum-db-5.27.1
 
 ### Greenplum 6 Current Behavior
 
-**Install**
-```sh
+#### Install
+
+```console
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
 $ ls -l /usr/local/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} | grep green
@@ -385,8 +397,9 @@ lrwxrwxrwx root root greenplum-db -> /usr/local/greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.0
 ```
 
-**Upgrade**
-```sh
+#### Upgrade
+
+```console
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
 # Same behavior between 'upgrade' and 'install'
@@ -399,8 +412,9 @@ $ ls -l /usr/local/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} | grep green
 drwxr-xr-x root root greenplum-db-6.8.1
 ```
 
-**Downgrade**
-```sh
+#### Downgrade
+
+```console
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
 # Unexpected error to stdout
@@ -414,8 +428,9 @@ lrwxrwxrwx root root greenplum-db -> /usr/local/greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.0
 ```
 
-**Relocated Install**
-```sh
+#### Relocated Install
+
+```console
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
 error: Failed dependencies:
 
@@ -429,8 +444,9 @@ lrwxrwxrwx root root greenplum-db -> /opt/greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.0
 ```
 
-**Relocated Upgrade**
-```sh
+#### Relocated Upgrade
+
+```console
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
 error: Failed dependencies:
 
@@ -448,8 +464,9 @@ $ ls -l /opt | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} | grep green
 drwxr-xr-x root root greenplum-db-6.8.1
 ```
 
-**Relocated Downgrade**
-```sh
+#### Relocated Downgrade
+
+```console
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
 error: Failed dependencies:
 
@@ -469,8 +486,9 @@ lrwxrwxrwx root root greenplum-db -> /opt/greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.0
 ```
 
-**Dual Install (same package major version)**
-```sh
+#### Dual Install (same package major version)
+
+```console
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 error: Failed dependencies:
 
@@ -490,8 +508,9 @@ drwxr-xr-x root root greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.1
 ```
 
-**Relocated Dual Install (same package major version)**
-```sh
+#### Relocated Dual Install (same package major version)
+
+```console
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
 error: Failed dependencies:
 
@@ -513,8 +532,9 @@ drwxr-xr-x root root greenplum-db-6.8.1
 
 ### Expected Behavior for All Major Versions
 
-**Install**
-```sh
+#### Install
+
+```console
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
 $ ls -l /usr/local/ | awk {'print $1" "$3" "$4" "$9" "$10" "$11'} | grep green
@@ -522,8 +542,9 @@ lrwxrwxrwx root root greenplum-db -> /usr/local/greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.0
 ```
 
-**Upgrade**
-```sh
+#### Upgrade
+
+```console
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
 $ yum upgrade -y -d0 ./greenplum-db-6.8.1-rhel7-x86_64.rpm
@@ -534,8 +555,9 @@ drwxr-xr-x root root greenplum-db-6.8.1
 # The 6.8.0 installation directory may still exist
 ```
 
-**Downgrade**
-```sh
+#### Downgrade
+
+```console
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
 $ yum upgrade -y -d0 ./greenplum-db-6.8.1-rhel7-x86_64.rpm
@@ -548,8 +570,9 @@ drwxr-xr-x root root greenplum-db-6.8.0
 # The 6.8.1 installation directory may still exist
 ```
 
-**Relocated Install**
-```sh
+#### Relocated Install
+
+```console
 # First, install dependencies as needed
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
 
@@ -558,8 +581,9 @@ lrwxrwxrwx root root greenplum-db -> /opt/greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.0
 ```
 
-**Relocated Upgrade**
-```sh
+#### Relocated Upgrade
+
+```console
 # First, install dependencies as needed
 
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
@@ -572,8 +596,9 @@ drwxr-xr-x root root greenplum-db-6.8.1
 # The 6.8.0 installation directory may still exist
 ```
 
-**Relocated Downgrade**
-```sh
+#### Relocated Downgrade
+
+```console
 # First, install dependencies as needed
 
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
@@ -588,8 +613,9 @@ drwxr-xr-x root root greenplum-db-6.8.0
 # The 6.8.1 installation directory may still exist
 ```
 
-**Dual Install (same package major version)**
-```sh
+#### Dual Install (same package major version)
+
+```console
 # First, install dependencies as needed
 
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm
@@ -602,8 +628,9 @@ drwxr-xr-x root root greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.1
 ```
 
-**Relocated Dual Install (same package major version)**
-```sh
+#### Relocated Dual Install (same package major version)
+
+```console
 # First, install dependencies as needed
 
 $ rpm -i ./greenplum-db-6.8.0-rhel7-x86_64.rpm --prefix=/opt
@@ -618,8 +645,9 @@ drwxr-xr-x root root greenplum-db-6.8.0
 drwxr-xr-x root root greenplum-db-6.8.1
 ```
 
-**Dual Install (different package major version)**
-```sh
+#### Dual Install (different package major version)
+
+```console
 $ yum install -y -d0 ./greenplum-db-5.27.0-rhel7-x86_64.rpm
 $ yum install -y -d0 ./greenplum-db-6.8.0-rhel7-x86_64.rpm
 
