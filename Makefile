@@ -116,20 +116,18 @@ check:
 	$(MAKE) lint
 
 .PHONY: lint
-lint:
-	$(MAKE) shfmt shellcheck yamllint
+lint: shfmt
+	docker run --rm \
+        -e RUN_LOCAL=true \
+        -e VALIDATE_MD=true \
+        -e VALIDATE_BASH=true \
+        -e VALIDATE_YAML=true \
+        -v ${PWD}:/tmp/lint \
+        github/super-linter:v3
 
 .PHONY: shfmt
 shfmt:
 	docker run --rm -v ${PWD}:/code mvdan/shfmt:v2.6.4 -d /code
-
-.PHONY: shellcheck
-shellcheck:
-	docker run --rm -v ${PWD}:/code mvdan/shfmt:v2.6.4 -f /code | xargs docker run --rm -v ${PWD}:/code koalaman/shellcheck:v0.7.1
-
-.PHONY: yamllint
-yamllint:
-	docker run --rm -v ${PWD}:/code cytopia/yamllint /code -c /code/.yamllint
 
 local-build-gpdb6-deb:
 	bin/create_gpdb6_deb_package.bash
