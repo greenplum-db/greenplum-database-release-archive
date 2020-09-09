@@ -11,7 +11,7 @@ ppa-login: 'greenplum/db'
 ppa-package-name: 'greenplum-db-6'
 release-message: >-
   Release for Open Source version of Greenplum.
-  Please see http://greenplum.org/docs for more information.
+  Please see https://docs.greenplum.org for more information.
 debian-release-git-remote: https://github.com/greenplum-db/debian-release.git
 debian-release-git-branch: master
 debian-package-maintainer-fullname: 'gpdb team'
