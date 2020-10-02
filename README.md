@@ -23,12 +23,14 @@ The full behavior and user experience of the packages involves many code bases a
 
 Create a RPM package locally for a given tarball of the Server, platform, and Version.
 
+Support for **Centos 6/7** and **Greenplum 4/5/6/7**.
+
 ### Configuration
 
 ```bash
-export BIN_GPDB_TARGZ=/path/bin/bin_gpdb.tar.gz
-export CENTOS_VERSION=7
-export GPDB_VERSION=6.x.x
+export BIN_GPDB_TARGZ=[Path to bin_gpdb.tar.gz]
+export CENTOS_VERSION=[Major Version Number]
+export GPDB_VERSION=[Version String]
 ```
 
 ### Execution
@@ -41,13 +43,15 @@ make local-build-gpdb-rpm
 
 Create a DEB package locally for a given tarball of the Server, and version. It is not specific to the version of Ubuntu.
 
+Support for **Ubuntu 18.04** and **Greenplum 5/6/7**.
+
 **Note:** When building Greenplum 5 debian packages, the `yq` utility is required. Please refer to the [installation guide](https://github.com/mikefarah/yq#install)
 
 ### Configuration
 
 ```bash
-export BIN_GPDB_TARGZ=/path/bin/bin_gpdb.tar.gz
-export GPDB_VERSION=6.x.x
+export BIN_GPDB_TARGZ=[Path to bin_gpdb.tar.gz]
+export GPDB_VERSION=[Version String]
 ```
 
 ### Execution
