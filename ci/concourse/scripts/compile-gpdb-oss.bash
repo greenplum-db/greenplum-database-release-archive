@@ -99,7 +99,7 @@ include_python() {
 
 	# because we vendor python module, hence we need to re-generate the greenplum_path.sh with
 	# additional PYTHONHOME information
-	gpdb_src/gpMgmt/bin/generate-greenplum-path.sh "${greenplum_install_dir}" yes >"${greenplum_install_dir}/greenplum_path.sh"
+	gpdb_src/gpMgmt/bin/generate-greenplum-path.sh yes >"${greenplum_install_dir}/greenplum_path.sh"
 }
 
 include_libstdcxx() {
