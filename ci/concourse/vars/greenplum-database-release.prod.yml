@@ -19,6 +19,6 @@ debian-package-maintainer-email: gpdb-bosh@pivotal.io
 tanzunet-client-version: v4.3.1
 tanzunet-client-git-remote: git@github.com:pivotal/gp-tanzunet-client.git
 tanzunet-client-branch: main
-tanzunet-endpoint: "https://network.pivotal.io"
+tanzunet-endpoint: "https://network.tanzu.vmware.com"
 tanzunet-product-slug: greenplum-database
 tanzunet-metadata-file-path: ci/tanzunet/metadata.yml
