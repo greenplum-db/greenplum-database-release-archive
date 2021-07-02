@@ -35,7 +35,7 @@ product_files:
   platforms:
   included_files:
   file_version: ${VERSION_REGEX}
-- file: file://gpdb-odp/Greenplum-Database-by-VMware-Tanzu-(.*)-ODP.tar.gz
+- file: file://gpdb-odp/VMware-greenplum-6-database-(.*)-ODP.tar.gz
   upload_as: Open Source Disclosure Package for Greenplum Database by VMware Tanzu 6
   description:
   file_type: Open Source License
