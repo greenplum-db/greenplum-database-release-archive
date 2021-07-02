@@ -238,7 +238,7 @@ resources:
   source:
     bucket: pivotal-gpdb-concourse-resources-prod
     json_key: ((concourse-gcs-resources-service-account-key))
-    regexp: osl/released/gpdb6/open_source_license_greenplum_gatabase_by_vmware_tanzu_(.*)_GA.txt
+    regexp: osl/released/gpdb6/open_source_license_greenplum_database_by_vmware_tanzu_(.*)_GA.txt
   type: gcs
 
 - name: gpdb-odp
