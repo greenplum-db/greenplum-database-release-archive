@@ -53,7 +53,8 @@ Description of the expected behavior as it relates to RPM packaging for the Gree
 - The package shall be named based on [Greenplum Filename Specifications](https://github.com/pivotal/gp-releng/blob/main/docs/Greenplum-Filename-Specifications.md)
 - The package shall be [relocatable](http://ftp.rpm.org/api/4.4.2.2/relocatable.html)
 - The package shall create a symbolic link from `${installation prefix}/greenplum-db-[package-version]` to `${installation prefix}/greenplum-db`
-  - If a `${installation prefix}/greenplum-db` symbolic link already exists, then it should be removed and the expected link created
+  - If a `${installation prefix}/greenplum-db` symbolic link already exists and it is of a different *Major* version, then do nothing.
+  - If a `${installation prefix}/greenplum-db` symbolic link already exists and it is of the same *Major* version, then the `${installation prefix}/greenplum-db` symbolic link should be updated to point to the package being installed.
 - When performing an upgrade, downgrade, or uninstall of the RPM package, if a user has made any changes to `${installation prefix}/greenplum-db-[package-version]/greenplum_path.sh`, then the file shall not be removed or overwritten.
 
 ### _Greenplum Path Layer_
