@@ -21,7 +21,7 @@ This repository contains 3 different topics that support packaging and distribut
 
 The full behavior and user experience of the packages involves many code bases and components coming together. The following is documentation that captures in one location the specification and behavior of a Greenplum Database Server package.
 
-1. [Greenplum Database Server RPM Packaging Specification](Greenplum-Database-Server-RPM-Packaging-Specification.md)
+1. [Greenplum Server RPM Packaging Specification](Greenplum-Server-RPM-Packaging-Specification.md)
 
 ## Build RPM and DEB from compiled archive
 
