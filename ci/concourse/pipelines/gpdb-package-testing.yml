@@ -934,7 +934,7 @@ jobs:
         - |
           fly -t releng login -c https://releng.ci.gpdb.pivotal.io -u pivotal -p ${BASIC_AUTH_PASSWORD}
           export WORKSPACE=`pwd`
-          make -C greenplum-database-release set-gpdb-package-testing-prod
+          FLY_OPTION_NON_INTERACTIVE="-n" make -C greenplum-database-release set-gpdb-package-testing-prod
 
 - name: gpdb_component_packaging_centos6
   plan:
