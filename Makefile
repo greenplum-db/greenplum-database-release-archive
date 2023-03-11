@@ -24,7 +24,7 @@ WORKSPACE ?= ${HOME}/workspace
 
 DEV_PIPELINE_NAME              = dev-greenplum-database-release-${BRANCH}-${USER}
 DEV_PIPELINE_7_NAME              = dev-greenplum-database-release-7-${BRANCH}-${USER}
-FLY_CMD                    = fly
+FLY_CMD                    ?= fly
 FLY_OPTION_NON_INTERACTIVE ?=
 
 DEV_GPDB-PACKAGE-TESTING_PIPELINE_NAME = dev-gpdb-package-testing-${BRANCH}-${USER}
