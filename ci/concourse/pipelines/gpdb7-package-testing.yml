@@ -111,14 +111,6 @@ resources:
     product_slug: vmware-greenplum
     product_version: 7\.0\.0
 
-- name: previous-7.0.0-oss-release
-  type: github-release
-  source:
-    owner: greenplum-db
-    repository: gpdb
-    access_token: ((releng/github-token-gp-releng))
-    tag_filter: 7.0.0$
-
 - name: bin_gpdb7_rocky8
   type: gcs
   source:
@@ -667,10 +659,6 @@ jobs:
     - get: previous-6.20.0-release
       params:
         globs: [greenplum-db-*-rhel8-x86_64.rpm]
-    - get: previous-7.0.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-el8-x86_64.rpm
     - get: rpm_gpdb7_rocky8_oss
       passed:
       - create_gpdb7_rpm_installer_rocky8_oss
@@ -721,10 +709,6 @@ jobs:
     - get: previous-6.20.0-release
       params:
         globs: [greenplum-db-*-rhel8-x86_64.rpm]
-    - get: previous-7.0.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-el8-x86_64.rpm
     - get: previous-7.0.0-release
       params:
         globs:
@@ -769,10 +753,6 @@ jobs:
     - get: previous-6.20.0-release
       params:
         globs: [greenplum-db-*-rhel8-x86_64.rpm]
-    - get: previous-7.0.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-el8-x86_64.rpm
     - get: previous-7.0.0-release
       params:
         globs:

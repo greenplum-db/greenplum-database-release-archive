@@ -298,14 +298,6 @@ resources:
     product_slug: vmware-greenplum
     product_version: 6\.2\.1
 
-- name: previous-6.20.0-oss-release
-  type: tanzunet
-  source:
-    api_token: ((releng/public-tanzunet-refresh-token))
-    endpoint: ((tanzunet-endpoint))
-    product_slug: greenplum-database
-    product_version: 6\.20\.0
-
 - name: previous-5.25.0-release
   type: tanzunet
   source:
@@ -2094,10 +2086,6 @@ jobs:
       passed:
       - create_gpdb6_rpm_installer_centos6_oss
       trigger: true
-    - get: previous-6.20.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-rhel6-x86_64.rpm
     - get: greenplum-database-release
       passed:
       - create_gpdb6_rpm_installer_centos6
@@ -2183,10 +2171,6 @@ jobs:
       passed:
       - create_gpdb6_rpm_installer_centos7_oss
       trigger: true
-    - get: previous-6.20.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-rhel7-x86_64.rpm
     - get: greenplum-database-release
       passed:
       - create_gpdb6_rpm_installer_centos7
@@ -2240,10 +2224,6 @@ jobs:
       passed:
       - create_gpdb6_rpm_installer_oel7_oss
       trigger: true
-    - get: previous-6.20.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-rhel7-x86_64.rpm
     - get: greenplum-database-release
       passed:
       - create_gpdb6_rpm_installer_oel7
@@ -2350,10 +2330,6 @@ jobs:
       params:
         globs:
         - greenplum-db-*-rhel8-x86_64.rpm
-    - get: previous-6.20.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-rhel8-x86_64.rpm
     - get: rpm_gpdb6_rocky8_oss
       passed:
       - create_gpdb6_rpm_installer_rocky8_oss
@@ -2397,10 +2373,6 @@ jobs:
       params:
         globs:
         - greenplum-db-*-rhel8-x86_64.rpm
-    - get: previous-6.20.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-rhel8-x86_64.rpm
     - get: rpm_gpdb6_rocky8_oss
       passed:
       - create_gpdb6_rpm_installer_rocky8_oss
@@ -2444,10 +2416,6 @@ jobs:
       params:
         globs:
         - greenplum-db-*-rhel8-x86_64.rpm
-    - get: previous-6.20.0-oss-release
-      params:
-        globs:
-        - open-source-greenplum-db-*-rhel8-x86_64.rpm
     - get: rpm_gpdb6_rocky8_oss
       passed:
       - create_gpdb6_rpm_installer_rocky8_oss
